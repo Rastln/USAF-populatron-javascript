@@ -1,0 +1,29 @@
+version: '3.4'
+
+# using extension fields is overkill in this scenario,
+# but it can be useful if you need multiple similar
+# instances of the same service
+x-app-base:
+  &app-base
+  build:
+    context: .
+    args:
+      - APP_DIR=${APP_DIR}
+  command:
+    - scripts/start_app.sh
+  env_file:
+    - docker/app.env
+  ports:
+    - ${DEFAULT_APP_PORT}
+
+services:
+  app:
+    <<: *app-base
+
+  e2e:
+    image: "cypress/included:3.7.0"
+    working_dir: ${APP_DIR}
+    depends_on:
+      - app
+    environment:
+      - CYPRESS_baseUrl=http://app:${DEFAULT_APP_PORT}

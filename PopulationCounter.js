@@ -1,16 +1,19 @@
+const FileReader = require('./filereader')
+const CSVParser = require('./csvparser')
+
 class PopulationCounter {
 
-    constructor(Reader, Parser) {
-        this.Reader = Reader
-        this.Parser = Parser
+    constructor(reader, parser) {
+        this.reader = reader
+        this.parser = parser
     }
 
     count(filename){
-        var parsedCSV = this.Parser.readLines(this.Reader.readFile(filename))
+        var parsedCSV = this.parser.readLines(this.reader.readFile(filename))
         var total = 0
         for(var i = 1; i < parsedCSV.length; i++) {           
             const words = parsedCSV[i].split(',')
-            if (!isNaN(words[4].charCodeAt(0)))
+            if (words[4] !== "" && words[4] !== undefined && !isNaN(words[4]))
                 total +=  parseInt(words[4])
         }
         return total

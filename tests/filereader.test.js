@@ -7,7 +7,7 @@ describe('FileReader', ()=> {
 
         const mockReadFile = jest.fn()
         const mockFileReader = { readFile: mockReadFile }
-        //expect(filereader.readFile('./tests/resources/testfile.txt')).toBe("hello");
+        
         mockFileReader.readFile(filename)
 
         // assert

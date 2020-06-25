@@ -7,15 +7,4 @@ var reader = new FileReader()
 var parser = new CSVParser()
 var popCounter = new PopulationCounter(reader, parser)
 
-class Index {
-    constructor() {}
-
-    printPopulation(filename) {
-        console.log("The population of the world is: " + popCounter.count(process.argv[2]))
-    }
-}
-
-const index = new Index();
-index.printPopulation();
-
-module.exports = Index
+console.log("The population of the world is: " + popCounter.count(process.argv[2]).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'))

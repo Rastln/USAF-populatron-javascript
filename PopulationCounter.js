@@ -8,10 +8,10 @@ class PopulationCounter {
         this.parser = parser
     }
 
-    count(filename){
+    count(filename) {
         var parsedCSV = this.parser.readLines(this.reader.readFile(filename))
         var total = 0
-        for(var i = 1; i < parsedCSV.length; i++) {           
+        for(var i = 1; i < parsedCSV.length; i++)  {           
             const words = parsedCSV[i].split(',')
             if (words[4] !== "" && words[4] !== undefined && !isNaN(words[4]))
                 total +=  parseInt(words[4])
